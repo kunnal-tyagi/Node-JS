@@ -1,0 +1,5 @@
+when we do npm i express -all source code from internet comes here
+dependency-any package your project in depend on 
+.bin-
+version of package-"4.19.2"
+4-major version 19-minor version 2-patch(small change or quick fix)
