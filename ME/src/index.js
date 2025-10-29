@@ -2,6 +2,12 @@ const express=require("express")
 const app=express()
 const bcrypt=require("bcrypt")
 const {info}=require("../database/mongo")
+const jwt=require("jsonwebtoken")
+const cookieParser = require("cookie-parser");
+const UserAuth=require('../Middlewares/auth')
+app.use(cookieParser());
+require("dotenv").config();
+
 // Without this, req.body 
 // will be undefined when you send JSON from Postman.
 app.use(express.json())
@@ -10,6 +16,10 @@ app.use(express.json())
 app.post("/register",async (req,res)=>{
    const {firstname,lastname,password,email}=req.body;
    try {
+    if (!validator.isStrongPassword(password)) {
+  return res.status(400).send("Password not strong enough");
+}
+
     // bcrypt hashing is CPU-heavy → runs asynchronously.
 // Without await, MongoDB gets [object Promise] instead of "hashed_value".
     const hashedpassword=await bcrypt.hash(password,10);
@@ -39,9 +49,13 @@ app.post("/login", async (req, res) => {
     }
 
     // 2️⃣ Compare the plain password with the hashed password in DB
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid =await user.encrypt(password);
 
     if (isPasswordValid) {
+      // jwt.sign() is synchronous by default.
+// So you don’t actually need await unless you use the callback version
+      const token=user.getJWT();
+      res.cookie("token",token);
       res.status(200).send("User verified successfully");
     } else {
       res.status(401).send("Incorrect password");
@@ -50,6 +64,17 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error: " + error.message);
+  }
+});
+
+app.get("/profile", UserAuth,async (req, res) => {
+  try {
+    
+    const user = req.user;
+
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(401).send("Invalid or expired token"+err.message);
   }
 });
 
