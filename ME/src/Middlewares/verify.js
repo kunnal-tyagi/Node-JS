@@ -2,6 +2,8 @@ const jwt=require("jsonwebtoken");
 const {info}=require('../database/mongo')
 module.exports= async function UserAuth(req,res,next){
   try{
+    
+    
     const {token}=req.cookies;
     if (!token) return res.status(401).json({ message: "No token provided" });
 
