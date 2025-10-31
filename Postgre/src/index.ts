@@ -49,6 +49,8 @@ async function InsertData(username: string, password: string, age: number) {
   }
 }
 
+
+
 // ✅ Run in proper sequence
 (async () => {
   await CreateTable(); // wait for table creation

@@ -30,4 +30,8 @@ res.send("Updated");
   res.send(err.message)
  }
 })
+
+profilerouter.patch('/profile/password',(req,res)=>{
+  
+})
 module.exports=profilerouter
