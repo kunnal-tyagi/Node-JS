@@ -7,6 +7,7 @@ module.exports= async function UserAuth(req,res,next){
     const {token}=req.cookies;
     if (!token) return res.status(401).json({ message: "No token provided" });
 
+     //decodes the dara
   const {_id}=jwt.verify(token,process.env.JWT_SECRET);
   const user=await info.findById(_id);
   if(!user) throw new Error("User not found");
