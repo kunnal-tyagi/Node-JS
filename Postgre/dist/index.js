@@ -28,7 +28,9 @@ async function InsertData(username, password, age) {
     try {
         const inserting = `
       INSERT INTO users (username, password, age)
+    //   $1 are placeholders
       VALUES ($1, $2, $3)
+    //   Now PostgreSQL will return the newly inserted row back to you will parameters filled
       RETURNING *;
     `;
         const values = [username, password, age];
