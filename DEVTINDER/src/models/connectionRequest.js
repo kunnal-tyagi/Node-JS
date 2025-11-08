@@ -23,6 +23,16 @@ const connectionRequestSchema=new mongoose.Schema({
     timestamps:true
 })
 
+connectionRequestSchema.index({fromUserID:1,ToUserID:1})
+//it will be called before await x.save()
+connectionRequestSchema.pre("save",function(next){
+    const connectionRequest=this;
+    //check if fromuserid and touserid are same
+    if(connectionRequest.fromUserID.equals(connectionRequest.ToUserID)){
+        throw new Error("Cannot send Connection Request to Yourself")
+    }
+    next();
+})
 
 const ConnectionRequestModel=new mongoose.model("ConnectionRequest",connectionRequestSchema)
 module.exports=ConnectionRequestModel;

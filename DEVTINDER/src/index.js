@@ -6,7 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors=require('cors')
 const Authrouter=require('./routes/auth')
 const requestRouter=require('./routes/requests')
-const profilerouter=require('./routes/profile')
+const profilerouter=require('./routes/profile');
+const UserRoutes = require("./routes/user");
 app.use(cookieParser());
 require("dotenv").config();
 app.use(cors())
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use('/',Authrouter)
 app.use('/',profilerouter)
 app.use('/',requestRouter)
+app.use("/",UserRoutes)
 
 
 app.listen(3000, "0.0.0.0", () => {

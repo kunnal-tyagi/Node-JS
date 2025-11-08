@@ -26,7 +26,7 @@ const UserSchema=new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unique:true,
+        unique:true,//when we do unique true it automatically creates index,index helps to fetch data from db faster
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error("Wrong Email")
@@ -46,6 +46,8 @@ const UserSchema=new mongoose.Schema({
         required:true
     }
 })
+
+
 
 UserSchema.methods.getJWT=function(){
     //creates instance of model
