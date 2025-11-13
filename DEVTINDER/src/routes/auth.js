@@ -43,13 +43,20 @@ Authrouter.post("/login", async (req, res) => {
 
     // 2️⃣ Compare the plain password with the hashed password in DB
     const isPasswordValid =await user.encrypt(password);
-
+    
     if (isPasswordValid) {
       // jwt.sign() is synchronous by default.
 // So you don’t actually need await unless you use the callback version
       const token=user.getJWT();
-      res.cookie("token",token);
-      res.status(200).send("User verified successfully");
+      console.log(token);
+      
+      res.cookie("token", token, {
+  httpOnly: true,
+  sameSite: "None",
+  secure: true,
+});
+res.status(200).send(user);
+
     } else {
       res.status(401).send("Incorrect password");
     }
