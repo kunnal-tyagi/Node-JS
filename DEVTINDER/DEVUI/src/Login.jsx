@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux";
+
 import axios from 'axios'
+import { addUser } from './utils/userSlice'
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [emailId,setEmailId]=useState("")
     const [password,setPassword]=useState("")
-
+   const dispatch=useDispatch();
+   const Navigate=useNavigate();
     const handleLogin=async ()=>{
       try{
         const res = await axios.post(
-        "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/api/login",
+        // "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/api/login",
+        "http://localhost:3000/login",
+
       { email:emailId, password },
       { withCredentials: true } // important for cookies
 );
+    dispatch(addUser(res.data));
+    Navigate("/")
 
       }catch(err){
         console.error(err);

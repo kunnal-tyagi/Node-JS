@@ -7,3 +7,7 @@
 -Create BrowserRouter-Routes-Route
 -Create Footer
 -Create a login Page
+-Install axios
+-Install cors in backend => add middleware to it with configurations
+-Whenever you are making api calls pass credentials:true 
+-iNSTALL REDUX TOOLKIT AND READ DOCUMENTAATION

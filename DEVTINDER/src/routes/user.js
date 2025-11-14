@@ -78,6 +78,10 @@ UserRoutes.get('/feed',UserAuth,async (req,res)=>{
       {_id:{$ne:loggedInUser._id}}
     ]
    }).select("firstname lastname age").skip(skip).limit(limit);
+   res.status(200).json({
+      success: true,
+      users: UsersToAppear
+    });
   }catch(err){
     res.send("Error :"+err.message)
   }

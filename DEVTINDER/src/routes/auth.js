@@ -53,11 +53,12 @@ Authrouter.post("/login", async (req, res) => {
       console.log(token);
       
     res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,                // Codespaces preview uses HTTPS
-  sameSite: "none",            // cross-origin (frontend <-> backend)
-  maxAge: 24 * 60 * 60 * 1000  // 1 day
-});
+      httpOnly: true,
+      secure: false, // localhost must be false
+      sameSite: "lax", // localhost must be lax
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
 
 
 res.status(200).send(user);
