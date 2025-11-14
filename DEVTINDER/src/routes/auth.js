@@ -33,6 +33,8 @@ Authrouter.post("/register",async (req,res)=>{
 
 Authrouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
+  
 
   try {
     // 1️⃣ Find the user in MongoDB
@@ -50,11 +52,14 @@ Authrouter.post("/login", async (req, res) => {
       const token=user.getJWT();
       console.log(token);
       
-      res.cookie("token", token, {
+    res.cookie("token", token, {
   httpOnly: true,
-  sameSite: "None",
-  secure: true,
+  secure: true,                // Codespaces preview uses HTTPS
+  sameSite: "none",            // cross-origin (frontend <-> backend)
+  maxAge: 24 * 60 * 60 * 1000  // 1 day
 });
+
+
 res.status(200).send(user);
 
     } else {

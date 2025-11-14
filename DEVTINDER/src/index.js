@@ -13,7 +13,7 @@ app.use(cookieParser());
 require("dotenv").config();
 app.use(
   cors({
-    origin: "https://solid-space-fishstick-r456xgrrq9q4fwqv9-5173.app.github.dev",
+    origin: "https://refactored-system-x5gp4w9977p4f6pj9-5173.app.github.dev",
     credentials: true,
   })
 );

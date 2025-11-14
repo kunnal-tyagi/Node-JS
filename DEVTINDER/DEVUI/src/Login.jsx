@@ -7,7 +7,7 @@ const Login = () => {
     const handleLogin=async ()=>{
       try{
         const res = await axios.post(
-        "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/login",
+        "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/api/login",
       { email:emailId, password },
       { withCredentials: true } // important for cookies
 );
