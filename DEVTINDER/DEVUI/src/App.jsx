@@ -15,13 +15,16 @@ function App() {
     <Provider store={appstore}>
     <BrowserRouter basename='/'>
       <Routes>
-         <Route path='/' element={<Body/>}>
-            <Route path='/' element={<Feed/>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/login' element={<Login/>}/>
-         </Route>
-        
-      </Routes>
+  <Route path="/" element={<Body />}>
+    {/* index route = default nested route */}
+    <Route index element={<Feed />} />
+    
+    {/* child routes should NOT start with "/" */}
+    <Route path="profile" element={<Profile />} />
+    <Route path="login" element={<Login />} />
+  </Route>
+</Routes>
+
     </BrowserRouter>
     </Provider>
      

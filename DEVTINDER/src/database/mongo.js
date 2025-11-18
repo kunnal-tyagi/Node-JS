@@ -44,7 +44,12 @@ const UserSchema=new mongoose.Schema({
         //     }
         // },
         required:true
+    },
+     photoUrl: {
+        type: String,
+        default: "https://api.dicebear.com/7.x/avataaars/svg?seed=MaleUser&topType=ShortHairShortCurly&facialHairType=BeardMedium&clotheType=ShirtCrewNeck"
     }
+    
 })
 
 
