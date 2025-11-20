@@ -45,12 +45,47 @@ const UserSchema=new mongoose.Schema({
         // },
         required:true
     },
-     photoUrl: {
-        type: String,
-        default: "https://api.dicebear.com/7.x/avataaars/svg?seed=MaleUser&topType=ShortHairShortCurly&facialHairType=BeardMedium&clotheType=ShirtCrewNeck"
-    }
+     gender: {
+      type: String,
+      enum: {
+        values: ["male", "female", "other"],
+        message: `{VALUE} is not a valid gender type`,
+      },
+      // validate(value) {
+      //   if (!["male", "female", "others"].includes(value)) {
+      //     throw new Error("Gender data is not valid");
+      //   }
+      // },
+    },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    membershipType: {
+      type: String,
+    },
+    photoUrl: {
+      type: String,
+      default: "https://geographyandyou.com/images/user-profile.png",
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid Photo URL: " + value);
+        }
+      },
+    },
+    about: {
+      type: String,
+      default: "This is a default about of the user!",
+    },
+    skills: {
+      type: [String],
+    },
+  },
+  {
+    timestamps: true,
+  }
     
-})
+)
 
 
 

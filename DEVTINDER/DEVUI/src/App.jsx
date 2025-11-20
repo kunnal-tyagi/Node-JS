@@ -17,7 +17,7 @@ function App() {
       <Routes>
   <Route path="/" element={<Body />}>
     {/* index route = default nested route */}
-    <Route index element={<Feed />} />
+    <Route path='/feed' element={<Feed />} />
     
     {/* child routes should NOT start with "/" */}
     <Route path="profile" element={<Profile />} />

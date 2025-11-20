@@ -6,30 +6,61 @@ const validator=require('validator')
 const {info}=require("../database/mongo")
 
 
-Authrouter.post("/register",async (req,res)=>{
-   const {firstname,lastname,password,email}=req.body;
-   try {
-    if (!validator.isStrongPassword(password)) {
-  return res.status(400).send("Password not strong enough");
-}
+Authrouter.post("/register", async (req, res) => {
+  try {
+    const {
+      firstname,
+      lastname,
+      email,
+      password,
+      gender,
+      isPremium,
+      membershipType,
+      photoUrl,
+      about,
+      skills
+    } = req.body;
 
-    // bcrypt hashing is CPU-heavy → runs asynchronously.
-// Without await, MongoDB gets [object Promise] instead of "hashed_value".
-    const hashedpassword=await bcrypt.hash(password,10);
-    const data=new info({
-        firstname:firstname,
-        lastname,
-        email,
-        password:hashedpassword
-    })
-    await data.save();
-    res.status(201).send("User registered successsfully");
-   } catch (error) {
-    
-       console.log(error);
-       res.status(404).send("Error : "+error);
-   }
-})
+    // 1️⃣ Strong Password Check
+    if (!validator.isStrongPassword(password)) {
+      return res.status(400).send("Password not strong enough");
+    }
+
+    // 2️⃣ Hash Password (async) without await it returns a object as hash is a cpu heavyu task 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 3️⃣ Create New User from JSON Body
+    const user = new info({
+      firstname,
+      lastname,
+      email,
+      password: hashedPassword,
+      gender,
+      isPremium,
+      membershipType,
+      photoUrl,
+      about,
+      skills
+    });
+
+    // 4️⃣ Save User to MongoDB
+    await user.save();
+
+    // 5️⃣ Success Response
+    res.status(201).send("User registered successfully");
+  } 
+  catch (error) {
+    console.log(error);
+
+    // MongoDB unique email error
+    if (error.code === 11000) {
+      return res.status(400).send("Email already exists");
+    }
+
+    res.status(500).send("Error: " + error.message);
+  }
+});
+
 
 Authrouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
