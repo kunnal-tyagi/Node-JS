@@ -25,7 +25,7 @@ profilerouter.patch('/profile/edit',UserAuth,async (req,res)=>{
     Object.keys(req.body).forEach((key)=> (LoggedInuser[key]=req.body[key]));
     await LoggedInuser.save();
     
-res.send("Updated");
+res.send(LoggedInuser);
   }
    catch(err){
   res.send(err.message)
