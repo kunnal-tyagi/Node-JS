@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import {useDispatch} from "react-redux"
+import Usercard from './Usercard'
 import axios from 'axios'
+import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer, toast,Flip } from 'react-toastify';
 import { addUser } from './utils/userSlice'
 const EditProfile = ({user}) => {
     if (!user) return <p>Loading profile...</p>; // Show something while user is not available
@@ -27,6 +30,18 @@ const EditProfile = ({user}) => {
             withCredentials:true
         });
         console.log("Updated Profile:",Updated.data);
+
+        toast.success('✅ Profile updated successfully!', {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "light",
+transition: Flip,
+});
         dispatch(addUser(Updated.data));
     }catch(err){
         console.error(err);
@@ -34,6 +49,9 @@ const EditProfile = ({user}) => {
     }
   
   return (
+    <div className='flex justify-center my-10 gap-10'>
+    <ToastContainer />
+
     <div>
          <div className='flex justify-center my-10'>
         <div className="card bg-base-300 w-96 shadow-sm">
@@ -218,6 +236,9 @@ const EditProfile = ({user}) => {
   </div>
 </div>
     </div>
+    </div>
+     <div className="h-10"></div> 
+    <Usercard user={{firstname:firstName,lastname:lastName,photoUrl,age,gender,about}}/>
     </div>
   )
 }

@@ -4,12 +4,18 @@ const validator=require('validator')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-mongoose.connect('mongodb+srv://testuser:namastenode@cluster0.cnp4x.mongodb.net/DevTinder')
+mongoose.connect('mongodb+srv://kunaltyyagi_db_user:64HdwAU3sfwBQe2B@devbase.w3vnmr3.mongodb.net/DEVTINDER')
 .then(()=>{
     console.log("Db connected");
     
 })
 .catch((err) => console.log("MongoDB connection error:", err.message));
+// mongoose.connect('mongodb+srv://testuser:namastenode@cluster0.cnp4x.mongodb.net/DevTinder')
+// .then(()=>{
+//     console.log("Db connected");
+    
+// })
+// .catch((err) => console.log("MongoDB connection error:", err.message));
 
 
 const UserSchema=new mongoose.Schema({
