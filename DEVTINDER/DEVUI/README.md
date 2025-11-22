@@ -11,3 +11,7 @@
 -Install cors in backend => add middleware to it with configurations
 -Whenever you are making api calls pass credentials:true 
 -iNSTALL REDUX TOOLKIT AND READ DOCUMENTAATION
+-EDIT PROFILE
+-FEED
+-CONNECTION-pAGE
+

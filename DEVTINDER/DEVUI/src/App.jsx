@@ -7,6 +7,7 @@ import {Provider} from "react-redux"
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import appstore from './utils/appstore'
 import Profile from './Profile'
+import Connections from './Connections'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -22,6 +23,8 @@ function App() {
     {/* child routes should NOT start with "/" */}
     <Route path="profile" element={<Profile />} />
     <Route path="login" element={<Login />} />
+    <Route path="connections" element={<Connections />} />
+    {/* <Route path="requests" element={<Request />} /> */}
   </Route>
 </Routes>
 

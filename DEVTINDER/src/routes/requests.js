@@ -1,4 +1,5 @@
 const express=require('express')
+const mongoose=require('mongoose')
 const requestRouter=express.Router()
 const UserAuth=require('../Middlewares/verify');
 const ConnectionRequestModel = require('../models/connectionRequest');
@@ -41,7 +42,7 @@ requestRouter.post('/request/send/:status/:ToUserId',UserAuth,async (req,res)=>{
         }) 
         const data=await RequestSchema.save();
         res.json({
-            message:req.user.firstname+"is "+status+"in "+ToUserID.firstname,
+            message:req.user.firstname+" "+"is "+status+"in "+" "+checkUserInDb.firstname,
             data,
         });
     }catch(err){
@@ -66,7 +67,9 @@ requestRouter.post("/request/review/:status/:requestId",UserAuth,async (req,res)
                 message:"Status not allowed"
             })
         }
-
+        console.log(requestId);
+        console.log(loggedInUser._id);
+        
         const connectionRequest=await ConnectionRequestModel.findOne({
             _id:requestId,
             ToUserID:loggedInUser._id,

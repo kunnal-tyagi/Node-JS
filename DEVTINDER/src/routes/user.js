@@ -1,5 +1,6 @@
 const express=require("express")
 const UserRoutes=express.Router()
+const mongoose=require('mongoose')
 const UserAuth=require('../Middlewares/verify');
 const ConnectionRequestModel = require("../models/connectionRequest");
 const { info } = require("../database/mongo");
@@ -9,9 +10,16 @@ UserRoutes.get('/user/requests',UserAuth,async (req,res)=>{
   try{
    const loggedInUser=req.user;
    const PendingRequest=await ConnectionRequestModel.find({
-    ToUserId:loggedInUser._id,
+    ToUserID: loggedInUser._id,
     status:"interested"
-   }).populate("fromUserId",["firstname","lastname"])
+   }).populate("fromUserID",["firstname","lastname"])
+  // const PendingRequest = await ConnectionRequestModel.find().lean();
+  console.log(PendingRequest);
+
+   res.json({
+      message: "Data fetched successfully",
+      data: PendingRequest,
+    });
   }catch(err){
     res.status(400).send("Error :"+err.message)
   }
