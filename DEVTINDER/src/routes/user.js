@@ -21,7 +21,7 @@ UserRoutes.get('/user/requests',UserAuth,async (req,res)=>{
       data: PendingRequest,
     });
   }catch(err){
-    res.status(400).send("Error :"+err.message)
+    res.status(400).send("Error : "+err.message)
   }
 })
 
@@ -30,16 +30,16 @@ UserRoutes.get('/user/connections',UserAuth,async (req,res)=>{
     const loggedInUser=req.user;
     const NoOfConnections=await ConnectionRequestModel.find({
       $or:[
-        {ToUserId:loggedInUser._id,status:"accepted"},
-        {fromUserId:loggedInUser._id,status:"accepted"}
+        {ToUserID:loggedInUser._id,status:"accepted"},
+        {fromUserID:loggedInUser._id,status:"accepted"}
       ]
-    }).populate("fromUserId","firstname lastname").populate("ToUserId","firstname lastname")
+    }).populate("fromUserID","firstname lastname photoUrl about  age gender").populate("ToUserID","firstname lastname photoUrl about age gender")
 
     const data=NoOfConnections.map((row)=>{
-      if(row.fromUserId._id.toString() === loggedInUser._id.toString()){
-        return row.ToUserId
+      if(row.fromUserID._id.toString() === loggedInUser._id.toString()){
+        return row.ToUserID
       }
-      return row.fromUserId
+      return row.fromUserID
     })
 
     res.json({
@@ -68,15 +68,20 @@ UserRoutes.get('/feed',UserAuth,async (req,res)=>{
    //find all request that i have send or recieved
    const Allreq=await ConnectionRequestModel.find({
     $or:[
-      {fromUserId:loggedInUser._id},
-      {ToUserId:loggedInUser._id}
+      {fromUserID:loggedInUser._id},
+      {ToUserID:loggedInUser._id}
     ]
-   }).select("fromUserId ToUserId")
+   }).select("fromUserID ToUserID")
+   
+//    So .select("fromUserID ToUserID") does two things:
 
+// Performance: Fetches only the fields you need, reducing data transferred from MongoDB.
+
+// Clarity: You don’t accidentally include extra fields you won’t use.
    const hideUsersfromFeed=new Set();
    Allreq.forEach((req)=>{
-    hideUsersfromFeed.add(req.fromUserId.toString());
-    hideUsersfromFeed.add(req.ToUserId.toString())
+    hideUsersfromFeed.add(req.fromUserID.toString());
+    hideUsersfromFeed.add(req.ToUserID.toString())
    })
 
    const UsersToAppear=await info.find({

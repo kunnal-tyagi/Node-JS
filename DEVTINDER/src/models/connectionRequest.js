@@ -2,12 +2,12 @@ const mongoose=require('mongoose')
 const connectionRequestSchema=new mongoose.Schema({
     fromUserID:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"info",//reference to the collection
+        ref:"User",//reference to the model name
         required:true,
     },
     ToUserID:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"info",
+        ref:"User",//reference to the model name
          required:true,
     },
     status:{
@@ -17,7 +17,7 @@ const connectionRequestSchema=new mongoose.Schema({
         // the value is strictly equal to one of the values in the given array.
 
         enum:{
-            values:["ignore","interested","rejected","accepted"],
+            values:["ignored","interested","rejected","accepted"],
             message:'enum validator failed for path `{PATH}` with value `{VALUE}`'
         }
     }

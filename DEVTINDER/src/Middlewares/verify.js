@@ -13,6 +13,8 @@ module.exports= async function UserAuth(req,res,next){
   if(!user) throw new Error("User not found");
   //now user is attached with req object
   req.user=user;
+  console.log(user);
+  
   next();
 }
   catch(err){

@@ -63,6 +63,17 @@ const UserSchema=new mongoose.Schema({
       //   }
       // },
     },
+    age:{
+      type: Number,
+      min:18,
+      required:true,
+      validate: {
+          validator: function (value) {
+           return Number.isInteger(value) && value >= 18;
+          },
+          message: "Age must be an integer and at least 18"
+  },
+    },
     isPremium: {
       type: Boolean,
       default: false,
