@@ -12,7 +12,7 @@ UserRoutes.get('/user/requests',UserAuth,async (req,res)=>{
    const PendingRequest=await ConnectionRequestModel.find({
     ToUserID: loggedInUser._id,
     status:"interested"
-   }).populate("fromUserID",["firstname","lastname"])
+   }).populate("fromUserID",["firstname","lastname","photoUrl","age","gender","about"])
   // const PendingRequest = await ConnectionRequestModel.find().lean();
   console.log(PendingRequest);
 

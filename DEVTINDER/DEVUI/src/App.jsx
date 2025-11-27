@@ -8,6 +8,7 @@ import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import appstore from './utils/appstore'
 import Profile from './Profile'
 import Connections from './Connections'
+import Request from './Request'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -24,7 +25,7 @@ function App() {
     <Route path="profile" element={<Profile />} />
     <Route path="login" element={<Login />} />
     <Route path="connections" element={<Connections />} />
-    {/* <Route path="requests" element={<Request />} /> */}
+    <Route path="requests" element={<Request />} />
   </Route>
 </Routes>
 
