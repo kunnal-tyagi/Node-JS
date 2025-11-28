@@ -23,19 +23,22 @@ useEffect(()=>{
 },[])
       if(!connections) return;
       if(connections.length===0){
-        return <h1>Make some connections........</h1>
+        return <div className='text-center mt-20'>
+  <h2 className='text-xl font-semibold text-gray-500'>You have no connections yet!</h2>
+</div>
+
       }
   return (
-    <div className='text-center my-10 w-1/2 mx-auto'>
+    <div className='text-center my-10 w-11/12 sm:w-3/4 md:w-1/2 mx-auto'>
         <h1 className='font-bold text-2xl'>Connections</h1>
         {connections.map((plot)=>{
          return (
-           <div className='flex m-4 p-4 rounded-lg bg-base-200'>
-            <div><img src={plot.photoUrl} alt="profile pic" className='w-20 h-20 rounded-full '/></div>
-            <div className='text-left mx-4'>
+           <div className='flex flex-col sm:flex-row items-center sm:items-start m-4 p-4 rounded-lg bg-base-200 shadow-md'>
+            <div  className='flex-shrink-0'><img src={plot.photoUrl} alt="profile pic" className='w-24 h-24 sm:w-20 sm:h-20 rounded-full object-cover'/></div>
+            <div className='text-center sm:text-left mt-4 sm:mt-0 sm:ml-4'>
               <h2 className='font-bold text-xl'>{plot.firstname} {plot.lastname}</h2>
-            <h2>{plot.about}</h2>
-            {plot.age && plot.gender && <p>{plot.age+","+plot.gender}</p>}
+            <h2 className='text-gray-600'>{plot.about}</h2>
+            {plot.age && plot.gender && <p className='text-gray-500'>{plot.age+","+plot.gender}</p>}
             </div>
           </div>
          )
