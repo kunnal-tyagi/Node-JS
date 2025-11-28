@@ -27,7 +27,7 @@ const UserSchema=new mongoose.Schema({
     lastname:{
         type:String,
         trim:true,
-        required:true
+        // required:true
     },
     email:{
         type:String,
@@ -66,7 +66,7 @@ const UserSchema=new mongoose.Schema({
     age:{
       type: Number,
       min:18,
-      required:true,
+      // required:true,
       validate: {
           validator: function (value) {
            return Number.isInteger(value) && value >= 18;

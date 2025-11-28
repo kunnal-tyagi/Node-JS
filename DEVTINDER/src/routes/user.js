@@ -90,7 +90,7 @@ UserRoutes.get('/feed',UserAuth,async (req,res)=>{
       //$ne means not equal to       $nin means not in this array
       {_id:{$ne:loggedInUser._id}}
     ]
-   }).select("firstname lastname age").skip(skip).limit(limit);
+   }).select("firstname lastname age about photoUrl gender").skip(skip).limit(limit);
    res.status(200).json({
       success: true,
       users: UsersToAppear

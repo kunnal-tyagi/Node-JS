@@ -13,13 +13,13 @@ Authrouter.post("/register", async (req, res) => {
       lastname,
       email,
       password,
-      gender,
-      age,
-      isPremium,
-      membershipType,
-      photoUrl,
-      about,
-      skills
+      // gender,
+      // age,
+      // isPremium,
+      // membershipType,
+      // photoUrl,
+      // about,
+      // skills
     } = req.body;
 
     // 1️⃣ Strong Password Check
@@ -36,20 +36,24 @@ Authrouter.post("/register", async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
-      gender,
-      age,
-      isPremium,
-      membershipType,
-      photoUrl,
-      about,
-      skills
+      // gender,
+      // age,
+      // isPremium,
+      // membershipType,
+      // photoUrl,
+      // about,
+      // skills
     });
 
     // 4️⃣ Save User to MongoDB
-    await user.save();
+    const savedUser=await user.save();
+    const token = await savedUser.getJWT();
 
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
     // 5️⃣ Success Response
-    res.status(201).send("User registered successfully");
+    res.status(201).send({message:"User registered successfully",data:savedUser});
   } 
   catch (error) {
     console.log(error);
