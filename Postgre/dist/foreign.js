@@ -22,6 +22,7 @@ async function main() {
         user_id INT NOT NULL,
         address VARCHAR(50) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES workers(id) ON DELETE CASCADE
+        //  on delete RESTRICT
       );
     `);
         console.log("✅ Tables ready.");
