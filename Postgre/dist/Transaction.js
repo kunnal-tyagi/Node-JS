@@ -16,19 +16,25 @@ async function createa() {
         `;
         await client.query(T1);
         //insertinf data
-        const T2 = `
-        INSERT INTO TIMBERS(name,age) VALUES($1,$2);
-        `;
-        await client.query(T2, ["kunnal", 20]);
-        await client.query(T2, ["samay", 23]);
+        // const T2=`
+        // INSERT INTO TIMBERS(name,age) VALUES($1,$2);
+        // `
+        // await client.query(T2,["kunnal",20]);
+        // await client.query(T2,["samay",23]);
         const result = await client.query(`SELECT * FROM TIMBERS`);
         console.table(result.rows);
         // Transaction starts
         await client.query("BEGIN");
-        const patch = await client.query(`
+        await client.query(`
         update timbers set name=$1,age=$2 where id=3;
         `, ["vikrant", 20]);
-        console.table(result.rows);
+        await client.query(`
+        update timbers set name=$1,age=$2 where id=4;
+        `, ["vikrant", 20]);
+        await client.query('COMMIT');
+        // await client.query('TRUNCATE TABLE timbers RESTART IDENTITY;')
+        const updated = await client.query('SELECT * FROM TIMBERS');
+        console.table(updated.rows);
     }
     catch (err) {
         console.log(err);

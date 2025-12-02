@@ -1,0 +1,11 @@
+Transactions in SQL are a way to group multiple queries so they behave as one atomic unit — meaning either all of them succeed or none of them do.
+They're essential for maintaining data integrity.
+
+A transaction is a sequence of SQL operations executed as a single unit of work.
+
+A transaction must follow ACID:
+
+->Atomicity – all or nothing
+->Consistency – database remains valid
+->Isolation – transactions don’t interfere
+->Durability – once committed, changes persist
