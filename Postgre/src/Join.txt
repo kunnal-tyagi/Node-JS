@@ -3,3 +3,5 @@
 2.LEFT JOIN-->rETURNS FROM LEFT TABLE EVEN IF THERE IS NO DATA IN RIGHT TABLE  vice versa for RIGHT JOIN
 
 3.FULL JOIN-->Returns rows when there is a match in one of the tables,it effectively combines the results of both left and right join.
+
+https://projects.100xdevs.com/
