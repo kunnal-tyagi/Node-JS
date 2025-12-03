@@ -1,0 +1,5 @@
+1.Inner Join-->Returns rows when there is atleast one match in both tables,if there is no match the rows are not returned.JOIN by default is INNER JOIN.
+
+2.LEFT JOIN-->rETURNS FROM LEFT TABLE EVEN IF THERE IS NO DATA IN RIGHT TABLE  vice versa for RIGHT JOIN
+
+3.FULL JOIN-->Returns rows when there is a match in one of the tables,it effectively combines the results of both left and right join.
