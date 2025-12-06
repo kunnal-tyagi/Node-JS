@@ -22,10 +22,10 @@ function App() {
     <Route path='/feed' element={<Feed />} />
     
     {/* child routes should NOT start with "/" */}
-    <Route path="profile" element={<Profile />} />
-    <Route path="login" element={<Login />} />
-    <Route path="connections" element={<Connections />} />
-    <Route path="requests" element={<Request />} />
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/connections" element={<Connections />} />
+    <Route path="/requests" element={<Request />} />
   </Route>
 </Routes>
 
