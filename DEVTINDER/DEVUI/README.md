@@ -31,3 +31,18 @@
 - Send/Ignore the user card from the feed 
 - Signup New User 
 - E2E testing
+model User{
+  id Int @id @default(autoincrement())
+  Email  String @unique
+  firstName String?
+  lastName String?
+  password String
+}
+
+model Todo{
+  id Int @id @default(autoincrement())
+  title String
+  done  Boolean @default(false)
+  description String?
+  userId Int
+}

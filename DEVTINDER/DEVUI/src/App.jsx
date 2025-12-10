@@ -9,6 +9,7 @@ import appstore from './utils/appstore'
 import Profile from './Profile'
 import Connections from './Connections'
 import Request from './Request'
+import Chat from './chat.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -26,6 +27,7 @@ function App() {
     <Route path="/login" element={<Login />} />
     <Route path="/connections" element={<Connections />} />
     <Route path="/requests" element={<Request />} />
+    <Route path="/chat/:targetUserId" element={<Chat />} />
   </Route>
 </Routes>
 

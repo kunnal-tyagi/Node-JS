@@ -2,6 +2,10 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const {createServer} = require("http");
+const httpServer = createServer(app);
+const InitializeSocket = require("./utils/socket");
+InitializeSocket(httpServer);
 
 // Parse JSON request body
 app.use(express.json());
@@ -50,7 +54,9 @@ app.use((req, res) => {
   res.status(404).send(`Route not found: ${req.originalUrl}`);
 });
 
+
+
 // SERVER LISTEN
-app.listen(3000, "0.0.0.0", () => {
+httpServer.listen(3000, "0.0.0.0", () => {
   console.log("Server running on port 3000");
 });

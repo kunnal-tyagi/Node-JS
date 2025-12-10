@@ -4,7 +4,8 @@ const validator=require('validator')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-mongoose.connect('mongodb+srv://kunaltyyagi_db_user:64HdwAU3sfwBQe2B@devbase.w3vnmr3.mongodb.net/DEVTINDER')
+mongoose.connect("mongodb+srv://kunaltyyagi_db_user:64HdwAU3sfwBQe2B@devbase.w3vnmr3.mongodb.net/DEVTINDER?retryWrites=true&w=majority&appName=devbase"
+)
 .then(()=>{
     console.log("Db connected");
     
