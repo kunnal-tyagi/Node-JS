@@ -33,9 +33,10 @@
 
 const { Server } = require("socket.io");
 const crypto= require("crypto");
+const Chat = require("../models/chat.js");
 const getSecretId=(userID,targetUserId)=>{
   return crypto
-  .hash('sha256')
+  .createHash('sha256')
   .update([userID, targetUserId].sort().join("_"))
   .digest('hex');
 }
@@ -60,15 +61,31 @@ const InitializeSocket = (server) => {
       socket.join(roomId);
     });
 
-    socket.on("sendMessage", ({ firstname, userID, targetUserId, text }) => {
+    socket.on("sendMessage",async ({ firstname, userID, targetUserId, text }) => {
       if (!userID || !targetUserId || !text) return;
 
       const roomId = getSecretId(userID, targetUserId);
-
-      io.to(roomId).emit("MessageRecieved", {
+      try{
+          let chat=await Chat.findOne({participants:{$all:[userID,targetUserId]}}); 
+          if(!chat){
+            chat=new Chat({
+              participants:[userID,targetUserId],
+              messages:[]
+            })
+          }
+          chat.messages.push({
+            senderID:userID,
+            text:text
+          });
+          await chat.save();
+          io.to(roomId).emit("MessageRecieved", {
         firstname,
         text,
       });
+      } catch(err){
+        console.error("Error handling sendMessage:", err);
+      }
+      
     });
 
     socket.on("disconnect", () => {

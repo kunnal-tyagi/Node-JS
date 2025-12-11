@@ -18,6 +18,7 @@ const Authrouter = require("./routes/auth");
 const requestRouter = require("./routes/requests");
 const profilerouter = require("./routes/profile");
 const UserRoutes = require("./routes/user");
+const chatRouter = require("./routes/chat");
 
 app.use(cookieParser());
 
@@ -49,7 +50,7 @@ app.use("/", Authrouter);
 app.use("/", profilerouter);
 app.use("/", requestRouter);
 app.use("/", UserRoutes);
-
+app.use("/",chatRouter)
 // 404 Handler
 app.use((req, res) => {
   res.status(404).send(`Route not found: ${req.originalUrl}`);
