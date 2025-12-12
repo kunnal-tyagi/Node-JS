@@ -2,6 +2,9 @@ import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import socketconnect from "./utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { use } from "react";
+import { set } from "mongoose";
 const Chat = () => {
   const { targetUserId } = useParams();
   const [messages, setMessages] = useState([]);
@@ -10,6 +13,32 @@ const Chat = () => {
 //   console.log(user.firstname);
   
   const userID=user?._id;
+
+   const FetchMessages=async ()=>{
+        try{
+          const prevChats=await axios.get(`http://localhost:3000/chat/${targetUserId}`,{
+            withCredentials:true
+          })
+          console.log(prevChats);
+          console.log(prevChats.data);
+          console.log(prevChats.data.messages);
+          
+          const chatMessages=prevChats?.data?.messages.map((msg)=>{
+                 return {
+                  firstname:msg?.senderID?.firstname,
+                  lastname:msg?.senderID?.lastname,
+                  text:msg?.text
+                }
+          })
+          setMessages(chatMessages);
+        }catch(Err){
+          console.log("Error fetching messages",Err);
+        }
+   }
+   useEffect(()=>{
+    FetchMessages();
+   },[])
+
 
   useEffect(()=>{
     if(!userID || !targetUserId)return;
@@ -23,9 +52,9 @@ const Chat = () => {
       // Remove old listener -> add new one
     socketconnect.off("MessageRecieved");
 
-     socketconnect.on('MessageRecieved',({firstname,text})=>{
+     socketconnect.on('MessageRecieved',({firstname,lastname,text})=>{
              console.log(text);
-             setMessages(prev => [...prev, { firstname, text }]);
+             setMessages(prev => [...prev, { firstname,lastname, text }]);
 
      })
      return ()=>{

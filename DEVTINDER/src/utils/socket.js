@@ -61,11 +61,13 @@ const InitializeSocket = (server) => {
       socket.join(roomId);
     });
 
-    socket.on("sendMessage",async ({ firstname, userID, targetUserId, text }) => {
-      if (!userID || !targetUserId || !text) return;
+    socket.on("sendMessage",async ({ firstname,lastname, userID, targetUserId, text }) => {
+     
+      try{
+         if (!userID || !targetUserId || !text) return;
 
       const roomId = getSecretId(userID, targetUserId);
-      try{
+      // TODO:check if userid and targetuserid ae friends before allowing to send message
           let chat=await Chat.findOne({participants:{$all:[userID,targetUserId]}}); 
           if(!chat){
             chat=new Chat({
@@ -80,6 +82,7 @@ const InitializeSocket = (server) => {
           await chat.save();
           io.to(roomId).emit("MessageRecieved", {
         firstname,
+        lastname,
         text,
       });
       } catch(err){
