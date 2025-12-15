@@ -21,7 +21,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-300 shadow-sm">
+      <div className="navbar bg-base-300 shadow-sm px-2 sm:px-4">
         <div className="flex-1">
           {/* ❌ removed the space → "/" is correct */}
           <Link to="/" className="btn btn-ghost text-xl">🧑‍💻 DevTinder</Link>
@@ -30,10 +30,10 @@ const NavBar = () => {
         <div className="flex gap-2">
           {user && (
             <div className="dropdown dropdown-end mx-5 flex">
-              <p className="px-4">Welcome {user.firstname}</p>
+              <p className=" sm:block px-4">Welcome {user.firstname}</p>
 
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
+                <div className="w-8 sm:w-10 rounded-full">
                   <img alt="User photo" src={user.photoUrl} />
                 </div>
               </div>

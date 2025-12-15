@@ -2,9 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>
-        <footer className="footer footer-horizontal footer-center bg-base-300 text-base-content rounded p-10 ">
-  <nav className="grid grid-flow-col gap-4">
+    
+        <footer className="footer sm:footer-horizontal footer-center bg-base-300 text-base-content px-4 py-6 sm:p-10">
+  <nav className="grid flex-wrap gap-4">
     <a className="link link-hover">About us</a>
     <a className="link link-hover">Contact</a>
     <a className="link link-hover">Jobs</a>
@@ -51,7 +51,7 @@ const Footer = () => {
     <p>Copyright © {new Date().getFullYear()} - All right reserved by Kunnal Tyagi</p>
   </aside>
 </footer>
-    </div>
+    
   )
 }
 

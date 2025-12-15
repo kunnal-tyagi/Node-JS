@@ -1,49 +1,79 @@
-import React from 'react'
-import {useDispatch, useSelector} from "react-redux"
-import axios from 'axios'
-import { addfeed,removefeed } from './utils/feedSlice'
-const Usercard = ({user}) => {
-  
-   const { _id, firstname, lastname, photoUrl, age, gender, about } = user;
-   const dispatch=useDispatch();
-   console.log(user);
-   
-  
-   const handleSendRequest=async(status,userId)=>{
-    try{
-      const choice=await axios.post("http://localhost:3000/request/send/"+status+"/"+userId,{},{
-        withCredentials:true,
-      })
+import React from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { removefeed } from "./utils/feedSlice";
+
+const Usercard = ({ user }) => {
+  if (!user) return null;
+
+  const { _id, firstname, lastname, photoUrl, age, gender, about } = user;
+  const dispatch = useDispatch();
+
+  const handleSendRequest = async (status, userId) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/request/send/${status}/${userId}`,
+        {},
+        { withCredentials: true }
+      );
       dispatch(removefeed(userId));
+    } catch (err) {
+      console.log("Error:", err.message);
     }
-    catch(err){
-      console.log("Error :"+err.message);
-      
-    }
-   }
+  };
 
   return (
-    <div>
-        <div className="card bg-base-100 w-96 shadow-sm ">
-  <figure>
-    <img
+    <div className="w-full max-w-sm mx-auto sm:max-w-md lg:max-w-lg px-2 sm:px-4 my-4">
+      <div className="card bg-base-100 shadow-md rounded-xl overflow-hidden w-full">
+        
+        {/* Image */}
+        <figure className="w-full aspect-[4/3]">
+          <img
+            className="object-cover w-full h-full"
+            src={
+              photoUrl ||
+              "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            }
+            alt={`${firstname} ${lastname}`}
+          />
+        </figure>
 
-      src={photoUrl || "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"}
-      alt="Photo" />
-  </figure>
-  <div className="card-body">
-    <h2 className="card-title">{firstname+" "+lastname}</h2>
-    {age && gender && <p>{age + ", " + gender}</p>}
-    <p>{about || "This is default about user"}</p>
-    <div className="card-actions my-4 justify-center">
-      {/* here we are directly getting _id from user i also have logged it to check */}
-      <button className="btn btn-primary" onClick={()=>{handleSendRequest("ignored",_id)}}>Ignore</button>
-      <button className="btn btn-secondary" onClick={()=>{handleSendRequest("interested",_id)}}>Interested</button>
-    </div>
-  </div>
-</div>
-    </div>
-  )
-}
+        {/* Body */}
+        <div className="card-body p-4 sm:p-6 flex flex-col gap-2">
+          <h2 className="card-title text-lg sm:text-xl">
+            {firstname} {lastname}
+          </h2>
 
-export default Usercard
+          {age && gender && (
+            <p className="text-sm sm:text-base text-gray-500">
+              {age}, {gender}
+            </p>
+          )}
+
+          <p className="text-sm sm:text-base text-gray-700 line-clamp-3">
+            {about || "This user has not added any description yet."}
+          </p>
+
+          {/* Actions */}
+          <div className="card-actions mt-4 justify-center flex flex-wrap gap-3">
+            <button
+              className="btn btn-outline btn-sm sm:btn-md flex-1"
+              onClick={() => handleSendRequest("ignored", _id)}
+            >
+              Ignore
+            </button>
+
+            <button
+              className="btn btn-primary btn-sm sm:btn-md flex-1"
+              onClick={() => handleSendRequest("interested", _id)}
+            >
+              Interested
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Usercard;

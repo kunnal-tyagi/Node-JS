@@ -9,7 +9,7 @@ import appstore from './utils/appstore'
 import Profile from './Profile'
 import Connections from './Connections'
 import Request from './Request'
-import Chat from './chat.jsx'
+import Chat from './Chat.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
