@@ -15,8 +15,8 @@ const Login = () => {
     const handleLogin=async ()=>{
       try{
         const res = await axios.post(
-        // "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/api/login",
-        "http://localhost:3000/login",
+"https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev",
+        // "http://localhost:3000/login",
 
       { email, password },
       { withCredentials: true } // important for cookies
@@ -32,8 +32,8 @@ const Login = () => {
     const handleRegister=async ()=>{
       try{
         const res = await axios.post(
-        // "https://solid-space-fishstick-r456xgrrq9q4fwqv9-3000.app.github.dev/api/login",
-        "http://localhost:3000/register",
+"https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev",
+        // "http://localhost:3000/register",
 
       {firstname,lastname, email, password },
       { withCredentials: true } // important for cookies

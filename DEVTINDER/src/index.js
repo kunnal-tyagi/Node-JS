@@ -12,7 +12,9 @@ app.use(express.json());
 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+// app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev",
+ credentials: true }));
 
 const Authrouter = require("./routes/auth");
 const requestRouter = require("./routes/requests");
@@ -23,27 +25,29 @@ const chatRouter = require("./routes/chat");
 app.use(cookieParser());
 
 // ✅ FIX 1 — Correct CORS for localhost
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
-
+// 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://bug-free-space-trout-4jpvr7gg5p7735rpr-5173.app.github.dev"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type"]
+}));
+app.options("*", cors());
 // ✅ FIX 2 — Handle CORS Prefight (OPTIONS)
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header("Access-Control-Allow-Headers", "Content-Type");
+//   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
+//   if (req.method === "OPTIONS") {
+//     return res.sendStatus(200);
+//   }
+//   next();
+// });
 
 // ROUTES
 app.use("/", Authrouter);

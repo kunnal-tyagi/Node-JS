@@ -16,7 +16,7 @@ const Body = () => {
       if (userData) return;
 
       const user = await axios.get(
-        "http://localhost:3000/profile/view",
+          "https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/profile/view",
         { withCredentials: true }
       );
 

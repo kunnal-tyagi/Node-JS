@@ -11,7 +11,12 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/logout", {}, { withCredentials: true });
+      await axios.post(
+  "https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/logout",
+  {},
+  { withCredentials: true }
+);
+      // await axios.post("http://localhost:3000/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       navigate("/login");  // ✅ correct navigation
     } catch (err) {

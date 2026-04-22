@@ -43,7 +43,8 @@ const getSecretId=(userID,targetUserId)=>{
 const InitializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      // origin: "http://localhost:5173",
+          origin: "https://bug-free-space-trout-4jpvr7gg5p7735rpr-5173.app.github.dev",
       credentials: true,
       methods: ["GET", "POST"],
       allowedHeaders: ["Content-Type"],

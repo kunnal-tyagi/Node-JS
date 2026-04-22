@@ -10,9 +10,12 @@ const Request = () => {
     
   const ReviewRequest=async(status,_id)=>{
     try{
-       const review=await axios.post("http://localhost:3000/request/review/"+status+"/"+_id,{},{
+       const review=await axios.post("https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/request/review/"+status+"/"+_id,{},{
         withCredentials:true,
        })
+      //  const review=await axios.post("http://localhost:3000/request/review/"+status+"/"+_id,{},{
+      //   withCredentials:true,
+      //  })
        dispatch(removeRequest(_id));
     }catch(err){
          console.log("Error :"+err.message);
@@ -21,9 +24,12 @@ const Request = () => {
 }
     const FetchRequest=async()=>{
         try{
-            const request=await axios.get("http://localhost:3000/user/requests",{
+            const request=await axios.get("https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/user/requests",{
             withCredentials:true
         })
+        //     const request=await axios.get("http://localhost:3000/user/requests",{
+        //     withCredentials:true
+        // })
         console.log(request)
         dispatch(addRequests(request.data.data))
     }catch(err){

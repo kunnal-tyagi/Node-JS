@@ -12,10 +12,15 @@ const Usercard = ({ user }) => {
   const handleSendRequest = async (status, userId) => {
     try {
       await axios.post(
-        `http://localhost:3000/request/send/${status}/${userId}`,
+        `https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/request/send/${status}/${userId}`,
         {},
         { withCredentials: true }
       );
+      // await axios.post(
+      //   `http://localhost:3000/request/send/${status}/${userId}`,
+      //   {},
+      //   { withCredentials: true }
+      // );
       dispatch(removefeed(userId));
     } catch (err) {
       console.log("Error:", err.message);

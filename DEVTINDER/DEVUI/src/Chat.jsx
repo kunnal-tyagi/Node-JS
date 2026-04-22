@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import socketconnect from "./utils/socket";
+// const socket = io("https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev");
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -17,7 +18,8 @@ const Chat = () => {
   const FetchMessages = async () => {
     try {
       const prevChats = await axios.get(
-        `http://localhost:3000/chat/${targetUserId}`,
+        // `http://localhost:3000/chat/${targetUserId}`,
+        `https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/chat/${targetUserId}`,
         { withCredentials: true }
       );
 

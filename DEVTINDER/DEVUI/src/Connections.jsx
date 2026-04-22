@@ -10,9 +10,12 @@ const Connections = () => {
 
   const fetchConnections = async () => {
     try {
-      const connect = await axios.get("http://localhost:3000/user/connections", {
+      const connect = await axios.get("https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/user/connections", {
         withCredentials: true,
       });
+      // const connect = await axios.get("http://localhost:3000/user/connections", {
+      //   withCredentials: true,
+      // });
       console.log(connect.data.data);
       dispatch(addConnections(connect.data.data));
     } catch (err) {

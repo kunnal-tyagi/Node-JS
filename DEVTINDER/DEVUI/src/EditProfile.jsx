@@ -21,7 +21,7 @@ const EditProfile = ({ user }) => {
   const SaveProfile = async () => {
     try {
       const Updated = await axios.patch(
-        "http://localhost:3000/profile/edit",
+          "https://bug-free-space-trout-4jpvr7gg5p7735rpr-3000.app.github.dev/profile/edit",
         {
           firstname: firstName,
           lastname: lastName,
